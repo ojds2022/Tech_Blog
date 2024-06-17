@@ -29,7 +29,11 @@ app.set('views', path.join(__dirname, 'views'));
 
 // Example route
 app.get('/', (req, res) => {
-  res.render('home', { title: 'Homepage' });
+  res.render('home', { title: 'Home Page' });
+});
+
+app.get('/dashboard', (req, res) => {
+  res.render('dashboard', { title: 'Dashboard' });
 });
 
 const PORT = process.env.PORT || 3000;
