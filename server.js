@@ -1,9 +1,15 @@
 const express = require('express');
+const routes = require('./routes');
 const { engine } = require('express-handlebars');
 const path = require('path');
 const sequelize = require('./config/connection');
 
 const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(routes);
 
 // Custom Helpers
 const hbs = engine({
@@ -36,7 +42,7 @@ app.get('/dashboard', (req, res) => {
   res.render('dashboard', { title: 'Dashboard' });
 });
 
-const PORT = process.env.PORT || 3000;
+
 
 sequelize.sync({ force: false }).then(() => {
   try {
