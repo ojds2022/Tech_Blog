@@ -44,6 +44,7 @@ sequelize.sync({ force: false }).then(() => {
       console.log(`Server is running on http://localhost:${PORT}`);
     });
   } catch (err) {
-    console.error('Failed to connect to server: ', err);
+    console.error(err);
+    console.log('Failed to connect to server.');
   }
 });
