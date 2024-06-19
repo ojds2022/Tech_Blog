@@ -1,15 +1,19 @@
-<div class="">
-    <h1>Your Dashboard</h1>
+<div class="mainHeaderContainer">
+    <div class="mainHeaderLining" id="dashboardHeader">
+        <h1 class="mainHeader">Your Dashboard</h1>
+    </div>
 </div>
-<form id="newPostForm" class="d-none">
-    <h3>Create New Post:</h3>
-    <label for="newPostTitle">Title</label>
-    <input id="newPostTitle" type="text" />
-    <label for="newPostContent">Content:</label>
-    <input id="newPostContent" type="text" />
-    <br /><button id="createPostBtn" type="submit">Create</button>
-</form>
-<div>
-    <button id="newPostBtn">+ New Post</button>
+<div id="dashboardContainer">
+    <form id="newPostForm" class="d-none">
+        <h3>Create New Post</h3>
+        <label for="newPostTitle">Title:</label>
+        <input id="newPostTitle" type="text" />
+        <label for="newPostContent">Content:</label>
+        <input id="newPostContent" type="text" />
+        <button id="createPostBtn" type="submit">Create</button>
+    </form>
+    <div id="newPostBtnContainer">
+        <button id="newPostBtn">+ New Post</button>
+    </div>
 </div>
 <script src="/js/dashboard.js"></script>

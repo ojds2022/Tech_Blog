@@ -1,10 +1,13 @@
-{{!-- Extend the main layout --}}
-{{!-- {{#extend 'body'}}
-  <h1>{{title}}</h1>
-  <p>Welcome to the homepage!</p>
-{{/extend}} --}}
-<h1>The Tech Blog</h1>
-{{#each blogPosts as |blogPost|}}
-  <h2>{{blogPost.blog_header}}</h2>
-  <p>{{blogPost.blog_content}}</p>
-{{/each}}
+<div class="mainHeaderContainer">
+  <div class="mainHeaderLining" id="techBlogHeader">
+    <h1 class="mainHeader">The Tech Blog</h1>
+  </div>
+</div>
+<div id="blogPostContainer">
+  {{#each blogPosts as |blogPost|}}
+    <div id="blogPost">
+      <h2>{{blogPost.blog_header}}</h2>
+      <p>{{blogPost.blog_content}}</p>
+    </div>
+  {{/each}}
+</div>

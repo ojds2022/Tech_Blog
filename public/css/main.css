@@ -1,0 +1,128 @@
+/* Navbar and header section */
+#header {
+    background-color: rgb(44, 28, 28);
+    padding: 1em;
+}
+
+#header a {
+    margin: 1em 2em;
+    text-decoration: none;
+    color: aquamarine;
+}
+
+.mainHeaderContainer {
+    background-color: rgb(44, 28, 28);
+    padding-bottom: 1em;
+}
+
+.mainHeaderLining {
+    background-color: aquamarine;
+    margin-left: 1em;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 5px 5px grey;
+}
+
+/* home page section */
+
+#techBlogHeader {
+    width: 260px;
+}
+
+#mainSection {
+    background-color: aquamarine;
+}
+
+#blogPostContainer {
+    margin: 1em auto;
+    width: 80%;
+}
+
+#blogPost {
+    background-color: aquamarine;
+    border: solid 3px rgb(44, 28, 28);
+    margin-bottom: 1em;
+}
+
+#blogPost h2 {
+    font-size: 1.2em;
+    background-color: rgb(44, 28, 28);
+    color: aquamarine;
+    padding: 0.5em;
+}
+
+#blogPost p {
+    font-size: 1em;
+    padding: 0.5em;
+}
+
+/* dashboard section */
+
+#dashboardHeader {
+    width: 300px;
+}
+
+#dashboardContainer {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+}
+
+#newPostBtnContainer {
+    margin: 1em;
+}
+
+#newPostBtn {
+    background-color: rgb(44, 28, 28);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+#newPostForm {
+    border: solid 3px rgb(44, 28, 28);
+    height: 60%;
+    width: 80%;
+    margin-bottom: 5em;
+}
+
+#newPostForm h3 {
+    font-size: 1.2em;
+    background-color: rgb(44, 28, 28);
+    color: aquamarine;
+    padding: 0.5em;
+}
+
+#newPostForm label {
+    display: block;
+    margin-left: 2em;
+}
+
+#newPostTitle {
+    width: 95%;
+    height: 10%;
+    display: block;
+    margin: 0 auto 1em auto;
+}
+
+#newPostContent {
+    width: 95%;
+    height: 30%;
+    display: block;
+    margin: 0 auto 1em auto;
+}
+
+#createPostBtn {
+    display: block;
+    margin: 1em auto;
+    border-radius: 5px;
+    border: none;
+    background-color: darkgray;
+    color: white;
+    width: 90%;
+}
