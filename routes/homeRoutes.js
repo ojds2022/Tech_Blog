@@ -19,6 +19,25 @@ router.get('/', async (req, res) => {
     }
 });
 
+// create new post route
+router.post('/submit', async (req, res) => {
+    try {
+        const { newPostTitle, newPostContent } = req.body;
+
+        if (!newPostTitle || !newPostContent) {
+            return res.status(400).json({ success: false, message: 'Title and content are required' });
+        }
+
+        // Save the inputData to the database (assuming a model and database setup)
+        await BlogPosts.create({ blog_header: newPostTitle, blog_content: newPostContent });
+
+        res.json({ success: true, message: 'Data inserted successfully' });
+    } catch (err) {
+        console.error('Error inserting data into the database:', err);
+        res.status(500).json(err);
+    }
+});
+
 // dashboard route
 router.get('/dashboard', async (req, res) => {
     try {

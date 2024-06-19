@@ -1,14 +1,14 @@
 <div class="">
     <h1>Your Dashboard</h1>
 </div>
-<div id="newPostForm" class="d-none">
-    <h3>Create New Post</h3>
-    <p>Title</p>
-    <input type="text" />
-    <p>Content</p>
-    <input type="text" />
-    <br /><button>Create</button>
-</div>
+<form id="newPostForm" class="d-none">
+    <h3>Create New Post:</h3>
+    <label for="newPostTitle">Title</label>
+    <input id="newPostTitle" type="text" />
+    <label for="newPostContent">Content:</label>
+    <input id="newPostContent" type="text" />
+    <br /><button id="createPostBtn" type="submit">Create</button>
+</form>
 <div>
     <button id="newPostBtn">+ New Post</button>
 </div>
