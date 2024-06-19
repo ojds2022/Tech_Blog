@@ -33,17 +33,6 @@ app.engine('handlebars', hbs);
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
 
-// Example route
-app.get('/', (req, res) => {
-  res.render('home', { title: 'Home Page' });
-});
-
-app.get('/dashboard', (req, res) => {
-  res.render('dashboard', { title: 'Dashboard' });
-});
-
-
-
 sequelize.sync({ force: false }).then(() => {
   try {
     app.listen(PORT, () => {

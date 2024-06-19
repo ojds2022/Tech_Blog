@@ -5,6 +5,8 @@ const { BlogPosts } = require('../../models');
 router.get('/', async (req, res) => {
     try {
         const allBlogPostData = await BlogPosts.findAll();
+
+        // convert each Sequelize model instance to a plain JavaScript object
         const blogPosts = allBlogPostData.map((blogPost) => blogPost.get({ plain: true }));
         res.json(blogPosts);
     } catch (err) {

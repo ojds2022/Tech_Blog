@@ -4,11 +4,7 @@
   <p>Welcome to the homepage!</p>
 {{/extend}} --}}
 <h1>The Tech Blog</h1>
-<h2>Why MVC is so important</h2>
-<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae nostrum, enim ab eaque sed nesciunt in placeat. Itaque molestiae veniam vero animi, incidunt, officia, dolor eligendi ab corrupti modi eum.</p>
-
-<h2>Authentication vs. Authorization</h2>
-<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae nostrum, enim ab eaque sed nesciunt in placeat. Itaque molestiae veniam vero animi, incidunt, officia, dolor eligendi ab corrupti modi eum.</p>
-
-<h2>Object-Relational Mapping</h2>
-<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repudiandae nostrum, enim ab eaque sed nesciunt in placeat. Itaque molestiae veniam vero animi, incidunt, officia, dolor eligendi ab corrupti modi eum.</p>
+{{#each blogPosts as |blogPost|}}
+  <h2>{{blogPost.blog_header}}</h2>
+  <p>{{blogPost.blog_content}}</p>
+{{/each}}
