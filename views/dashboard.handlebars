@@ -4,6 +4,19 @@
     </div>
 </div>
 <div id="dashboardContainer">
+    {{!-- <div id="blogPostContainer">
+        {{#each blogPosts as |blogPost|}}
+            <div id="blogPost">
+                <h2>{{blogPost.blog_header}}</h2>
+                <p>{{blogPost.blog_content}}</p>
+            </div>
+        {{/each}}
+    </div> --}}
+    <div id="recentPostsContainer">
+        {{#each blogPosts as |blogPost|}}
+            <button id="recentPost"><span>{{blogPost.blog_header}}</span> <span>{{blogPost.createdAt}}</span></button>
+        {{/each}}
+    </div>
     <form id="newPostForm" class="d-none">
         <h3>Create New Post</h3>
         <label for="newPostTitle">Title:</label>
