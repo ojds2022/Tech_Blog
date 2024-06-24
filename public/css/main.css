@@ -80,9 +80,10 @@
     width: 90%;
 }
 
-#recentPost {
+.recentPost {
     margin-bottom: 1em;
     border: none;
+    text-decoration: none;
     border-radius: 5px;
     background-color: darkgrey;
     color: white;
@@ -134,9 +135,57 @@
     height: 30%;
     display: block;
     margin: 0 auto 1em auto;
+    padding: 5px;
 }
 
 #createPostBtn {
+    display: block;
+    margin: 1em auto;
+    border-radius: 5px;
+    border: none;
+    background-color: darkgray;
+    color: white;
+    width: 90%;
+}
+
+/* edit bolg post section */
+
+#editPostContainer {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#editPostForm {
+    border: solid 3px rgb(44, 28, 28);
+    height: 60%;
+    width: 80%;
+    margin-bottom: 5em;
+}
+
+#editPostForm label {
+    display: block;
+    margin-left: 2em;
+}
+
+#editPostTitle {
+    width: 95%;
+    height: 10%;
+    display: block;
+    margin: 0 auto 1em auto;
+}
+
+#editPostContent {
+    width: 95%;
+    height: 30%;
+    display: block;
+    margin: 0 auto 1em auto;
+    padding: 5px;
+}
+
+#updatePostBtn {
     display: block;
     margin: 1em auto;
     border-radius: 5px;

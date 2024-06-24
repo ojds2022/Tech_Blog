@@ -1,36 +1,55 @@
 const newPostBtn = document.getElementById('newPostBtn');
 const newPostForm = document.getElementById('newPostForm');
 
-newPostBtn.addEventListener('click', () => {
-    // hides the recent posts
-    const recentPostsContainer = document.getElementById('recentPostsContainer');
-    recentPostsContainer.classList.toggle('d-none');
+// document.addEventListener('DOMContentLoaded', (event) => {
+//     const recentPosts = document.querySelectorAll('.recentPost');
 
-    // reveals the form to create a new post
-    const newPostForm = document.getElementById('newPostForm');
-    newPostForm.classList.toggle('d-none');
-});
+//     recentPosts.forEach(post => {
+//         post.addEventListener('click', (event) => {
+//             event.preventDefault(); // Prevent the default action of the link
+//             console.log('Post clicked:', post);
+//         });
+//     });
+// });
 
-newPostForm.addEventListener('submit', (e) => {
-    e.preventDefault();
+if (newPostBtn) {
+    newPostBtn.addEventListener('click', () => {
+        // hides the recent posts
+        const recentPostsContainer = document.getElementById('recentPostsContainer');
+        recentPostsContainer.classList.toggle('d-none');
+    
+        // reveals the form to create a new post
+        const newPostForm = document.getElementById('newPostForm');
+        newPostForm.classList.toggle('d-none');
+    });
+}
 
-    const newPostTitle = document.getElementById('newPostTitle').value;
-    const newPostContent = document.getElementById('newPostContent').value;
+if (newPostForm) {
+    newPostForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+    
+        const newPostTitle = document.getElementById('newPostTitle').value;
+        const newPostContent = document.getElementById('newPostContent').value;
+    
+        fetch('/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ newPostTitle, newPostContent })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Data submitted successfully!');
+            } else {
+                alert('Error submitting data');
+            }
+        })
+        .catch(err => console.error('Error:', err));
+    });
+}
 
-    fetch('/submit', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ newPostTitle, newPostContent })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('Data submitted successfully!');
-        } else {
-            alert('Error submitting data');
-        }
-    })
-    .catch(err => console.error('Error:', err));
-});
+// recentPost.addEventListener('click', () => {
+//     console.log('clicked');
+// });
