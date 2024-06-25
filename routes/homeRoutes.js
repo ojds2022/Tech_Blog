@@ -4,7 +4,6 @@ const { BlogPosts } = require('../models');
 // home page route
 router.get('/', async (req, res) => {
     try {
-        console.log('Home page');
         // fetch all blog post records from the BlogPosts table in the database
         const allBlogPostData = await BlogPosts.findAll();
 
@@ -27,7 +26,6 @@ router.get('/', async (req, res) => {
 // dashboard route
 router.get('/dashboard', async (req, res) => {
     try {
-        console.log('Dashboard page');
         // fetch all blog post records from the BlogPosts table in the database
         const allBlogPostData = await BlogPosts.findAll();
 
@@ -56,7 +54,7 @@ router.post('/submit', async (req, res) => {
             return res.status(400).json({ success: false, message: 'Title and content are required' });
         }
 
-        // Save the inputData to the database (assuming a model and database setup)
+        // save the inputData to the database
         await BlogPosts.create({ blog_header: newPostTitle, blog_content: newPostContent });
 
         res.json({ success: true, message: 'Data inserted successfully' });
@@ -66,10 +64,9 @@ router.post('/submit', async (req, res) => {
     }
 });
 
-// edit post route
+// finds one post by its id and navigates users to the edit post page
 router.get('/edit/:id', async (req, res) => {
     try {
-        console.log('Edit post page');
         const blogPostData = await BlogPosts.findOne(
             {
                 where: { id: req.params.id },
@@ -85,7 +82,6 @@ router.get('/edit/:id', async (req, res) => {
         }
         
         const chosenPost = blogPostData.get({ plain: true });
-        console.log('chosen post data: ', chosenPost);
 
         res.render('editPost', {
             title: 'Edit Post',
@@ -97,20 +93,30 @@ router.get('/edit/:id', async (req, res) => {
     }
 });
 
-// find one post by its id value
-// router.get('/:id', async (req, res) => {
-//     try {
-//         const blogPostData = await BlogPosts.findOne(
-//           {
-//             where: { id: req.params.id },
-//           }
-//         );
-//         const result = blogPostData.get({ plain: true });
-//         res.json(result);
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).json({ error: 'Failed to fetch blog post' });
-//     }
-// })
+// edit post when user clicks on 'update' button
+router.put('/edit/:id', async (req, res) => {
+try {
+    const { editPostTitle, editPostContent } = req.body;
+
+    if (!editPostTitle || !editPostContent) {
+        return res.status(400).json({ success: false, message: 'Title and content are required' });
+    }
+
+    // update the data on the database
+    const [updated] = await BlogPosts.update(
+        { blog_header: editPostTitle, blog_content: editPostContent },
+        { where: { id: req.params.id } }
+    );
+
+    if (updated) {
+        res.json({ success: true, message: 'Data updated successfully' });
+    } else {
+        res.status(404).json({ success: false, message: 'Post not found' });
+    }
+} catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to update data' });
+}
+});
 
 module.exports = router;

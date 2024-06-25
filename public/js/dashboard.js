@@ -1,5 +1,7 @@
 const newPostBtn = document.getElementById('newPostBtn');
 const newPostForm = document.getElementById('newPostForm');
+const editPostForm = document.getElementById('editPostForm');
+const updatePostBtn = document.getElementById('updatePostBtn');
 
 // document.addEventListener('DOMContentLoaded', (event) => {
 //     const recentPosts = document.querySelectorAll('.recentPost');
@@ -44,6 +46,33 @@ if (newPostForm) {
                 alert('Data submitted successfully!');
             } else {
                 alert('Error submitting data');
+            }
+        })
+        .catch(err => console.error('Error:', err));
+    });
+}
+
+if (editPostForm) {
+    editPostForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+    
+        const editPostTitle = document.getElementById('editPostTitle').value;
+        const editPostContent = document.getElementById('editPostContent').value;
+        const postId = editPostForm.dataset.id;
+    
+        fetch(`/edit/${postId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ editPostTitle, editPostContent })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Data updated successfully!');
+            } else {
+                alert('Error updating data');
             }
         })
         .catch(err => console.error('Error:', err));
