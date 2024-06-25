@@ -94,29 +94,46 @@ router.get('/edit/:id', async (req, res) => {
 });
 
 // edit post when user clicks on 'update' button
-router.put('/edit/:id', async (req, res) => {
-try {
-    const { editPostTitle, editPostContent } = req.body;
+router.put('/update/:id', async (req, res) => {
+    try {
+        const { editPostTitle, editPostContent } = req.body;
 
-    if (!editPostTitle || !editPostContent) {
-        return res.status(400).json({ success: false, message: 'Title and content are required' });
+        if (!editPostTitle || !editPostContent) {
+            return res.status(400).json({ success: false, message: 'Title and content are required' });
+        }
+
+        // update the data on the database
+        const [updated] = await BlogPosts.update(
+            { blog_header: editPostTitle, blog_content: editPostContent },
+            { where: { id: req.params.id } }
+        );
+
+        if (updated) {
+            res.json({ success: true, message: 'Data updated successfully' });
+        } else {
+            res.status(404).json({ success: false, message: 'Post not found' });
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to update data' });
     }
+});
 
-    // update the data on the database
-    const [updated] = await BlogPosts.update(
-        { blog_header: editPostTitle, blog_content: editPostContent },
-        { where: { id: req.params.id } }
-    );
+router.delete('/delete/:id', async (req, res) => {
+    try {
+        const deleteBlogPost = await BlogPosts.destroy(
+            { where: { id: req.params.id } }
+        );
 
-    if (updated) {
-        res.json({ success: true, message: 'Data updated successfully' });
-    } else {
-        res.status(404).json({ success: false, message: 'Post not found' });
+        if (deleteBlogPost) {
+            res.json({ success: true, message: 'Post deleted successfully' });
+        } else {
+            res.status(404).json({ success: false, message: 'Post was not deleted successfully' });
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to delete data' });
     }
-} catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Failed to update data' });
-}
 });
 
 module.exports = router;

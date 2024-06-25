@@ -2,6 +2,7 @@ const newPostBtn = document.getElementById('newPostBtn');
 const newPostForm = document.getElementById('newPostForm');
 const editPostForm = document.getElementById('editPostForm');
 const updatePostBtn = document.getElementById('updatePostBtn');
+const deletePostBtn = document.getElementById('deletePostBtn');
 
 // document.addEventListener('DOMContentLoaded', (event) => {
 //     const recentPosts = document.querySelectorAll('.recentPost');
@@ -60,7 +61,7 @@ if (editPostForm) {
         const editPostContent = document.getElementById('editPostContent').value;
         const postId = editPostForm.dataset.id;
     
-        fetch(`/edit/${postId}`, {
+        fetch(`/update/${postId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -73,6 +74,29 @@ if (editPostForm) {
                 alert('Data updated successfully!');
             } else {
                 alert('Error updating data');
+            }
+        })
+        .catch(err => console.error('Error:', err));
+    });
+}
+
+if (deletePostBtn) {
+    deletePostBtn.addEventListener('click', (e) => {
+        const postId = editPostForm.dataset.id;
+
+        fetch(`/delete/${postId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = '/dashboard'; // redirect to another page after the alert
+                alert('Post deleted successfully!');
+            } else {
+                alert('Error deleting post: ' + data.message);
             }
         })
         .catch(err => console.error('Error:', err));
