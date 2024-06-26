@@ -1,9 +1,39 @@
 const router = require('express').Router();
-const { BlogPosts } = require('../models');
+const { BlogPosts, Users } = require('../models');
+const sequelize = require('../config/connection');
+
+// login route
+router.get('/login', (req, res) => {
+    // if the user is already logged in, redirect to the homepage
+    if (req.session.loggedIn) {
+        res.redirect('/');
+        return;
+    }
+    // otherwise, render the login page
+    res.render('login');
+});
+
+// register new user route
+router.get('/signup', (req, res) => {
+    res.render('signup');
+});
+
+// logout route
+router.get('/logout', (req, res) => {
+    if (!req.session.loggedIn) {
+        res.redirect('/login');
+        return;
+    }
+
+    res.redirect('/');
+});
 
 // home page route
 router.get('/', async (req, res) => {
     try {
+        // fetch all users data from the Users table in the database
+        const allUsersData = await Users.findAll();
+
         // fetch all blog post records from the BlogPosts table in the database
         const allBlogPostData = await BlogPosts.findAll();
 
@@ -12,11 +42,14 @@ router.get('/', async (req, res) => {
         const topFourPosts = dataReversed.slice(0,4); // takes the four most recently created posts
 
         // convert each Sequelize model instance to a plain JavaScript object
+        const users = allUsersData.map((user) => user.get({ plain: true }));
         const blogPosts = topFourPosts.map((blogPost) => blogPost.get({ plain: true }));
 
         res.render('home', {
             title: 'Home Page',
-            blogPosts
+            users,
+            blogPosts,
+            //loggedIn: req.session.loggedIn
         });
     } catch (err) {
         res.status(500).json(err);
@@ -26,6 +59,9 @@ router.get('/', async (req, res) => {
 // dashboard route
 router.get('/dashboard', async (req, res) => {
     try {
+        // fetch all users data from the Users table in the database
+        const allUsersData = await Users.findAll();
+
         // fetch all blog post records from the BlogPosts table in the database
         const allBlogPostData = await BlogPosts.findAll();
 
@@ -34,11 +70,15 @@ router.get('/dashboard', async (req, res) => {
         const topEightPosts = dataReversed.slice(0,8); // takes the eight most recently created posts
 
         // convert each Sequelize model instance to a plain JavaScript object
+        const users = allUsersData.map((user) => user.get({ plain: true }));
         const blogPosts = topEightPosts.map((blogPost) => blogPost.get({ plain: true }));
 
         res.render('dashboard', {
             title: 'Dashboard',
-            blogPosts
+            users,
+            blogPosts,
+            //loggedIn: req.session.loggedIn,
+            //user_id: req.session.user_id
         });
     } catch (err) {
         res.status(500).json(err);

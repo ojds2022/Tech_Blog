@@ -44,7 +44,8 @@ if (newPostForm) {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert('Data submitted successfully!');
+                window.location.href = '/dashboard';
+                alert('Post created successfully!');
             } else {
                 alert('Error submitting data');
             }
@@ -71,7 +72,8 @@ if (editPostForm) {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert('Data updated successfully!');
+                window.location.href = '/dashboard';
+                alert('Post updated successfully!');
             } else {
                 alert('Error updating data');
             }
