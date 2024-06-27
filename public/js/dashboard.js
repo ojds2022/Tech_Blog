@@ -4,17 +4,6 @@ const editPostForm = document.getElementById('editPostForm');
 const updatePostBtn = document.getElementById('updatePostBtn');
 const deletePostBtn = document.getElementById('deletePostBtn');
 
-// document.addEventListener('DOMContentLoaded', (event) => {
-//     const recentPosts = document.querySelectorAll('.recentPost');
-
-//     recentPosts.forEach(post => {
-//         post.addEventListener('click', (event) => {
-//             event.preventDefault(); // Prevent the default action of the link
-//             console.log('Post clicked:', post);
-//         });
-//     });
-// });
-
 if (newPostBtn) {
     newPostBtn.addEventListener('click', () => {
         // hides the recent posts
@@ -104,7 +93,3 @@ if (deletePostBtn) {
         .catch(err => console.error('Error:', err));
     });
 }
-
-// recentPost.addEventListener('click', () => {
-//     console.log('clicked');
-// });

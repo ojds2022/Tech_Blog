@@ -5,22 +5,19 @@ const bodyParser = require('body-parser');
 const { engine } = require('express-handlebars');
 const path = require('path');
 const sequelize = require('./config/connection');
-
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 const sess = {
-  secret: process.env.SECRET,
-
+  secret: process.env.SECRET || 'supersecretkey',
   cookie: {
     maxAge: 24 * 60 * 60 * 1000,
     httpOnly: true,
     secure: false,
     sameSite: 'strict',
   },
-
   resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({
@@ -29,18 +26,11 @@ const sess = {
 };
 
 app.use(session(sess));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(routes);
-
-// Middleware to parse JSON bodies
 app.use(bodyParser.json());
-// Middleware to parse URL-encoded bodies
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// Serve static files from the "public" directory
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'))); // serve static files from the "public" directory
 
 // Custom Helpers
 const hbs = engine({
@@ -63,6 +53,8 @@ const hbs = engine({
 app.engine('handlebars', hbs);
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
+
+app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
   try {

@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { BlogPosts, Users } = require('../models');
+const withAuth = require('../utils/auth');
 const sequelize = require('../config/connection');
 
 // login route
@@ -24,7 +25,6 @@ router.get('/logout', (req, res) => {
         res.redirect('/login');
         return;
     }
-
     res.redirect('/');
 });
 
@@ -33,7 +33,6 @@ router.get('/', async (req, res) => {
     try {
         // fetch all users data from the Users table in the database
         const allUsersData = await Users.findAll();
-
         // fetch all blog post records from the BlogPosts table in the database
         const allBlogPostData = await BlogPosts.findAll();
 
@@ -49,7 +48,7 @@ router.get('/', async (req, res) => {
             title: 'Home Page',
             users,
             blogPosts,
-            //loggedIn: req.session.loggedIn
+            loggedIn: req.session.loggedIn
         });
     } catch (err) {
         res.status(500).json(err);
@@ -57,7 +56,7 @@ router.get('/', async (req, res) => {
 });
 
 // dashboard route
-router.get('/dashboard', async (req, res) => {
+router.get('/dashboard', withAuth, async (req, res) => {
     try {
         // fetch all users data from the Users table in the database
         const allUsersData = await Users.findAll();
@@ -77,8 +76,8 @@ router.get('/dashboard', async (req, res) => {
             title: 'Dashboard',
             users,
             blogPosts,
-            //loggedIn: req.session.loggedIn,
-            //user_id: req.session.user_id
+            loggedIn: req.session.loggedIn,
+            user_id: req.session.user_id
         });
     } catch (err) {
         res.status(500).json(err);
@@ -86,7 +85,7 @@ router.get('/dashboard', async (req, res) => {
 });
 
 // create new post route
-router.post('/submit', async (req, res) => {
+router.post('/submit', withAuth, async (req, res) => {
     try {
         const { newPostTitle, newPostContent } = req.body;
 
@@ -105,13 +104,9 @@ router.post('/submit', async (req, res) => {
 });
 
 // finds one post by its id and navigates users to the edit post page
-router.get('/edit/:id', async (req, res) => {
+router.get('/edit/:id', withAuth, async (req, res) => {
     try {
-        const blogPostData = await BlogPosts.findOne(
-            {
-                where: { id: req.params.id },
-            }
-        );
+        const blogPostData = await BlogPosts.findOne({ where: { id: req.params.id } });
 
         if (!blogPostData) {
             console.log('No post found with the given ID');
@@ -125,7 +120,8 @@ router.get('/edit/:id', async (req, res) => {
 
         res.render('editPost', {
             title: 'Edit Post',
-            chosenPost
+            chosenPost,
+            loggedIn: req.session.loggedIn
         });
     } catch (err) {
         console.error('Error retrieving post:', err);
@@ -134,7 +130,7 @@ router.get('/edit/:id', async (req, res) => {
 });
 
 // edit post when user clicks on 'update' button
-router.put('/update/:id', async (req, res) => {
+router.put('/update/:id', withAuth, async (req, res) => {
     try {
         const { editPostTitle, editPostContent } = req.body;
 
@@ -159,11 +155,9 @@ router.put('/update/:id', async (req, res) => {
     }
 });
 
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete/:id', withAuth, async (req, res) => {
     try {
-        const deleteBlogPost = await BlogPosts.destroy(
-            { where: { id: req.params.id } }
-        );
+        const deleteBlogPost = await BlogPosts.destroy({ where: { id: req.params.id } });
 
         if (deleteBlogPost) {
             res.json({ success: true, message: 'Post deleted successfully' });

@@ -26,6 +26,112 @@
     box-shadow: 5px 5px grey;
 }
 
+/* login page */
+
+#loginContainer {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#loginForm {
+    border: solid 3px rgb(44, 28, 28);
+    height: 50%;
+    width: 80%;
+    margin-bottom: 5em;
+}
+
+#loginForm h3 {
+    font-size: 1.2em;
+    background-color: rgb(44, 28, 28);
+    color: aquamarine;
+    padding: 0.5em;
+}
+
+#loginForm label {
+    display: block;
+    margin-left: 2em;
+}
+
+#loginUsername {
+    width: 90%;
+    height: 10%;
+    display: block;
+    margin: 0 auto 1em auto;
+}
+
+#loginPassword {
+    width: 90%;
+    height: 10%;
+    display: block;
+    margin: 0 auto 1em auto;
+    padding: 5px;
+}
+
+#signUpLink {
+    text-decoration: none;
+    text-align: center;
+}
+
+#signUpLink h4 {
+    font-size: 1em;
+}
+
+/* sign up page */
+
+#signUpContainer {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#signUpForm {
+    border: solid 3px rgb(44, 28, 28);
+    height: 50%;
+    width: 80%;
+    margin-bottom: 5em;
+}
+
+#signUpForm h3 {
+    font-size: 1.2em;
+    background-color: rgb(44, 28, 28);
+    color: aquamarine;
+    padding: 0.5em;
+}
+
+#signUpForm label {
+    display: block;
+    margin-left: 2em;
+}
+
+#signUpUsername {
+    width: 90%;
+    height: 10%;
+    display: block;
+    margin: 0 auto 1em auto;
+}
+
+#signUpPassword {
+    width: 90%;
+    height: 10%;
+    display: block;
+    margin: 0 auto 1em auto;
+    padding: 5px;
+}
+
+#loginLink {
+    text-decoration: none;
+    text-align: center;
+}
+
+#loginLink h4 {
+    font-size: 1em;
+}
+
 /* home page section */
 
 #techBlogHeader {
@@ -184,6 +290,8 @@
 
 /* repeated styles */
 
+#loginBtn,
+#signUpBtn,
 #createPostBtn,
 #updatePostBtn,
 #deletePostBtn {
@@ -196,6 +304,8 @@
     width: 90%;
 }
 
+#loginBtn:hover,
+#signUpBtn:hover,
 #createPostBtn:hover,
 #updatePostBtn:hover,
 #deletePostBtn:hover,

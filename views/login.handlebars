@@ -1,5 +1,19 @@
-<h1>login page</h1>
-
-<a href="/signup">
-    <h4>Sign up</h4>
-</a>
+<div class="mainHeaderContainer">
+  <div class="mainHeaderLining" id="techBlogHeader">
+    <h1 class="mainHeader">The Tech Blog</h1>
+  </div>
+</div>
+<div id="loginContainer">
+    <form id="loginForm">
+        <h3>Login</h3>
+        <label for="loginUsername">Username</label>
+        <input id="loginUsername" type="text" required />
+        <label for="loginPassword">Password</label>
+        <input id="loginPassword" type="text" required />
+        <button id="loginBtn" type="submit">Sign in!</button>
+        <a id="signUpLink" href="/signup">
+            <h4>Sign up instead</h4>
+        </a>
+    </form>
+</div>
+<script src="/js/login.js"></script>

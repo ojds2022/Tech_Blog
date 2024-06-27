@@ -27,10 +27,12 @@ Users.init(
         email_address: {
             type: DataTypes.STRING(50),
             allowNull: false,
+            unique: true,
         },
         username: {
             type: DataTypes.STRING(30),
             allowNull: false,
+            unique: true,
         },
         password: {
             type: DataTypes.STRING(255),
@@ -51,6 +53,12 @@ Users.init(
             newUserData.password = await bcrypt.hash(newUserData.password, 10);
             return newUserData;
             },
+            beforeUpdate: async (updatedUserData) => {
+                if (updatedUserData.changed('password')) {
+                    updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
+                }
+                return updatedUserData;
+            }
         },
         sequelize,
         timestamps: false,
