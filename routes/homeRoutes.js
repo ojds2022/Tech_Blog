@@ -14,11 +14,6 @@ router.get('/login', (req, res) => {
     res.render('login');
 });
 
-// register new user route
-router.get('/signup', (req, res) => {
-    res.render('signup');
-});
-
 // logout route
 router.get('/logout', (req, res) => {
     if (!req.session.loggedIn) {
@@ -26,6 +21,11 @@ router.get('/logout', (req, res) => {
         return;
     }
     res.redirect('/');
+});
+
+// register new user route
+router.get('/signup', (req, res) => {
+    res.render('signup');
 });
 
 // home page route
