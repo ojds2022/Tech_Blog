@@ -1,6 +1,7 @@
-const loginBtn = document.getElementById('loginBtn');
+document.addEventListener('DOMContentLoaded', (event) => {
+  const loginForm = document.getElementById('loginForm');
 
-const loginFormHandler = async (e) => {
+  const loginFormHandler = async (e) => {
     e.preventDefault();
   
     const username = document.getElementById('loginUsername').value;
@@ -14,13 +15,12 @@ const loginFormHandler = async (e) => {
       });
   
       if (response.ok) {
-        document.location.replace('/');  
+        window.location.href = '/dashboard';  
       } else {
         alert(response.statusText);
       }
     }
-}
+  }
 
-if (loginBtn) {
-    loginBtn.addEventListener('click', loginFormHandler);
-}
+  loginForm.addEventListener('submit', loginFormHandler);
+});
