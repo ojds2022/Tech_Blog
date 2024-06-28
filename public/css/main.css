@@ -166,7 +166,6 @@
 }
 
 #dashboardContainer {
-    height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -195,7 +194,8 @@
     margin: 1em;
 }
 
-#newPostBtn {
+#newPostBtn,
+#cancelBtn {
     background-color: rgb(44, 28, 28);
     color: white;
     border: none;
@@ -227,14 +227,6 @@
     height: 10%;
     display: block;
     margin: 0 auto 1em auto;
-}
-
-#newPostContent {
-    width: 95%;
-    height: 30%;
-    display: block;
-    margin: 0 auto 1em auto;
-    padding: 5px;
 }
 
 /* edit bolg post section */
@@ -273,14 +265,6 @@
     margin: 0 auto 1em auto;
 }
 
-#editPostContent {
-    width: 95%;
-    height: 30%;
-    display: block;
-    margin: 0 auto 1em auto;
-    padding: 5px;
-}
-
 /* repeated styles */
 
 #loginBtn,
@@ -305,4 +289,13 @@
 .recentPost:hover {
     background-color: rgb(117, 117, 117);
     color: white;
+}
+
+#newPostContent,
+#editPostContent {
+    width: 95%;
+    height: 30%;
+    display: block;
+    margin: 0 auto 1em auto;
+    padding: 5px;
 }

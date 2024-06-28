@@ -14,6 +14,11 @@ if (newPostBtn) {
         // reveals the form to create a new post
         const newPostForm = document.getElementById('newPostForm');
         newPostForm.classList.toggle('d-none');
+
+        newPostBtn.classList.toggle('d-none');
+
+        const cancelBtn = document.getElementById('cancelBtn');
+        cancelBtn.classList.toggle('d-none');
     });
 }
 

@@ -61,24 +61,26 @@ router.get('/dashboard', withAuth, async (req, res) => {
         // fetch all users data from the Users table in the database
         const allUsersData = await Users.findAll();
 
-        // fetch all blog post records from the BlogPosts table in the database
-        const allBlogPostData = await BlogPosts.findAll({ where: { user_id: req.session.user_id} });
+        if (BlogPosts) {
+            // fetch all blog post records from the BlogPosts table in the database
+            const allBlogPostData = await BlogPosts.findAll({ where: { user_id: req.session.user_id} });
 
-        const dataReversed = allBlogPostData.slice().reverse(); // reverses the array of blog posts
+            const dataReversed = allBlogPostData.slice().reverse(); // reverses the array of blog posts
 
-        const topEightPosts = dataReversed.slice(0,8); // takes the eight most recently created posts
+            const topEightPosts = dataReversed.slice(0,8); // takes the eight most recently created posts
 
-        // convert each Sequelize model instance to a plain JavaScript object
-        const users = allUsersData.map((user) => user.get({ plain: true }));
-        const blogPosts = topEightPosts.map((blogPost) => blogPost.get({ plain: true }));
+            // convert each Sequelize model instance to a plain JavaScript object
+            const users = allUsersData.map((user) => user.get({ plain: true }));
+            const blogPosts = topEightPosts.map((blogPost) => blogPost.get({ plain: true }));
 
-        res.render('dashboard', {
-            title: 'Dashboard',
-            users,
-            blogPosts,
-            loggedIn: req.session.loggedIn,
-            user_id: req.session.user_id
-        });
+            res.render('dashboard', {
+                title: 'Dashboard',
+                users,
+                blogPosts,
+                loggedIn: req.session.loggedIn,
+                user_id: req.session.user_id
+            });
+        }
     } catch (err) {
         res.status(500).json(err);
     }

@@ -14,11 +14,14 @@
         <label for="newPostTitle">Title:</label>
         <input id="newPostTitle" type="text" />
         <label for="newPostContent">Content:</label>
-        <input id="newPostContent" type="text" />
+        <textarea id="newPostContent"></textarea>
         <button id="createPostBtn" type="submit">Create</button>
     </form>
     <div id="newPostBtnContainer">
         <button id="newPostBtn">+ New Post</button>
+        <a href="/dashboard">
+            <button id="cancelBtn" class="d-none">Cancel</button>
+        </a>
     </div>
 </div>
 <script src="/js/dashboard.js"></script>
