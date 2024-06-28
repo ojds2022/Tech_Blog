@@ -4,6 +4,7 @@ const editPostForm = document.getElementById('editPostForm');
 const updatePostBtn = document.getElementById('updatePostBtn');
 const deletePostBtn = document.getElementById('deletePostBtn');
 
+// opens new post form
 if (newPostBtn) {
     newPostBtn.addEventListener('click', () => {
         // hides the recent posts
@@ -16,6 +17,7 @@ if (newPostBtn) {
     });
 }
 
+// creates a new post
 if (newPostForm) {
     newPostForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -43,6 +45,7 @@ if (newPostForm) {
     });
 }
 
+// opens the blog post editor when a user clicks on a post in their dashboard
 if (editPostForm) {
     editPostForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -71,6 +74,8 @@ if (editPostForm) {
     });
 }
 
+
+// deletes a blog post
 if (deletePostBtn) {
     deletePostBtn.addEventListener('click', (e) => {
         const postId = editPostForm.dataset.id;

@@ -62,7 +62,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
         const allUsersData = await Users.findAll();
 
         // fetch all blog post records from the BlogPosts table in the database
-        const allBlogPostData = await BlogPosts.findAll();
+        const allBlogPostData = await BlogPosts.findAll({ where: { user_id: req.session.user_id} });
 
         const dataReversed = allBlogPostData.slice().reverse(); // reverses the array of blog posts
 
@@ -88,13 +88,14 @@ router.get('/dashboard', withAuth, async (req, res) => {
 router.post('/submit', withAuth, async (req, res) => {
     try {
         const { newPostTitle, newPostContent } = req.body;
+        const userId = req.session.user_id;
 
         if (!newPostTitle || !newPostContent) {
             return res.status(400).json({ success: false, message: 'Title and content are required' });
         }
 
         // save the inputData to the database
-        await BlogPosts.create({ blog_header: newPostTitle, blog_content: newPostContent });
+        await BlogPosts.create({ blog_header: newPostTitle, blog_content: newPostContent, user_id: userId });
 
         res.json({ success: true, message: 'Data inserted successfully' });
     } catch (err) {
