@@ -141,22 +141,32 @@
     width: 80%;
 }
 
+#blogPostContainer a {
+    text-decoration: none;
+}
+
 #blogPost {
     background-color: aquamarine;
     border: solid 3px rgb(44, 28, 28);
     margin-bottom: 1em;
 }
 
+#blogPost section {
+    background-color: rgb(44, 28, 28);
+    padding: 0.5em;
+    display: flex;
+    justify-content: space-between;
+}
+
 #blogPost h2 {
     font-size: 1.2em;
-    background-color: rgb(44, 28, 28);
     color: aquamarine;
-    padding: 0.5em;
 }
 
 #blogPost p {
     font-size: 1em;
     padding: 0.5em;
+    color: rgb(44, 28, 28);
 }
 
 /* dashboard section */
@@ -176,6 +186,12 @@
     display: flex;
     flex-direction: column;
     width: 90%;
+}
+
+#noPostsYet {
+    text-align: center;
+    font-size: 2em;
+    color: rgb(44, 28, 28);
 }
 
 .recentPost {

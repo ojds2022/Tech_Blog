@@ -55,11 +55,19 @@ router.post('/', async (req, res) => {
             password: req.body.password,
         });
 
-        req.session.save(() => {
-            req.session.user_id = allUserData.id;
-            req.session.loggedIn = true;
+        req.session.user_id = allUserData.user_id;
+        req.session.loggedIn = true;
+
+        req.session.save(err => {
+            if (err) {
+                console.error(err);
+                res.status(500).json({ error: 'Failed to save session' });
+                return;
+            }
+
+            console.log('Session after user creation:', req.session); // Log session data
             res.status(200).json(allUserData);
-        })
+        });
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Failed to create user' });

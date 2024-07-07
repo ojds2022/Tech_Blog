@@ -34,7 +34,24 @@ router.get('/:id', async (req, res) => {
 // create a new blog post
 router.post('/', async (req, res) => {
   try {
-    const createNewBlogPost = await BlogPosts.create(req.body);
+    // ensure the user is logged in
+    if (!req.session.user_id) {
+      res.status(401).json({ error: 'User not logged in' });
+      return;
+    }
+    // fetch the user data to get the username
+    const user = await Users.findByPk(req.session.user_id);
+    if (!user) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+    // create the new blog post with the user_id and username
+    const createNewBlogPost = await BlogPosts.create({
+      ...req.body,
+      user_id: req.session.user_id,
+      username: user.username,
+    });
+
     res.json(createNewBlogPost);
   } catch (err) {
     console.error(err);

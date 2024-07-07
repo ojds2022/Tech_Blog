@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const { BlogPosts, Users } = require('../models');
 const withAuth = require('../utils/auth');
-const sequelize = require('../config/connection');
 
 // login route
 router.get('/login', (req, res) => {
@@ -55,33 +54,61 @@ router.get('/', async (req, res) => {
     }
 });
 
+// when a user clicks on a blog post on the homepage, it gives them a more detailed look at it and allows them to leave a comment
+router.get('/blogPost/:id', withAuth, async (req, res) => {
+    try {
+        const blogPostData = await BlogPosts.findOne({ where: { id: req.params.id } });
+
+        if (!blogPostData) {
+            console.log('No post found with the given ID');
+            return res.status(404).render('error', {
+                title: 'Post Not Found',
+                message: 'The post you are trying to select does not exist.'
+            });
+        }
+        
+        const chosenPost = blogPostData.get({ plain: true });
+
+        res.render('selectPost', {
+            title: 'Select Post',
+            chosenPost,
+            loggedIn: req.session.loggedIn
+        });
+    } catch (err) {
+        console.error('Error retrieving post:', err);
+        res.status(500).json(err);
+    }
+});
+
 // dashboard route
 router.get('/dashboard', withAuth, async (req, res) => {
     try {
         // fetch all users data from the Users table in the database
         const allUsersData = await Users.findAll();
 
-        if (BlogPosts) {
-            // fetch all blog post records from the BlogPosts table in the database
-            const allBlogPostData = await BlogPosts.findAll({ where: { user_id: req.session.user_id} });
+        // convert each Sequelize model instance to a plain JavaScript object
+        const users = allUsersData.map((user) => user.get({ plain: true }));
 
+        // fetch all blog post data with the user's id
+        const allBlogPostData = await BlogPosts.findAll({ where: { user_id: req.session.user_id} });
+
+        let blogPosts = [];
+
+        if (allBlogPostData.length > 0) {
             const dataReversed = allBlogPostData.slice().reverse(); // reverses the array of blog posts
-
             const topEightPosts = dataReversed.slice(0,8); // takes the eight most recently created posts
-
-            // convert each Sequelize model instance to a plain JavaScript object
-            const users = allUsersData.map((user) => user.get({ plain: true }));
-            const blogPosts = topEightPosts.map((blogPost) => blogPost.get({ plain: true }));
-
-            res.render('dashboard', {
-                title: 'Dashboard',
-                users,
-                blogPosts,
-                loggedIn: req.session.loggedIn,
-                user_id: req.session.user_id
-            });
+            blogPosts = topEightPosts.map((blogPost) => blogPost.get({ plain: true }));
         }
+
+        res.render('dashboard', {
+            title: 'Dashboard',
+            users,
+            blogPosts,
+            loggedIn: req.session.loggedIn,
+            user_id: req.session.user_id
+        });
     } catch (err) {
+        console.error('Failed to open dashboard', err);
         res.status(500).json(err);
     }
 });

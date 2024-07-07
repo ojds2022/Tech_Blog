@@ -13,7 +13,7 @@ const userData = [
         first_name: 'Michael',
         last_name: 'Jordan',
         email_address: 'mj@hotmail.com',
-        username: 'mj@hotmail.com',
+        username: 'mj_da_goat',
         password: 'helloWorld', // Replace with actual password
     },
 ];

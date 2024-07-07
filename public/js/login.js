@@ -15,9 +15,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
       });
   
       if (response.ok) {
-        window.location.href = '/dashboard';  
+        alert('Login successful!')
+        window.location.href = '/';  
       } else {
-        alert(response.statusText);
+        alert('Username or Password are incorrect');
       }
     }
   }

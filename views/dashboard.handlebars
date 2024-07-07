@@ -5,9 +5,16 @@
 </div>
 <div id="dashboardContainer">
     <div id="recentPostsContainer">
-        {{#each blogPosts as |blogPost|}}
-            <a class="recentPost" href="/edit/{{blogPost.id}}"><span>{{blogPost.blog_header}}</span> <span>{{blogPost.createdAt}}</span></a>
-        {{/each}}
+        {{#if blogPosts.length}}
+            {{#each blogPosts as |blogPost|}}
+                <a class="recentPost" href="/edit/{{blogPost.id}}">
+                    <span>{{blogPost.blog_header}}</span>
+                    <span>{{formatDate blogPost.createdAt}}</span>
+                </a>
+            {{/each}}
+        {{else}}
+            <p id="noPostsYet">No blog posts yet. Create your first blog post!</p>
+        {{/if}}
     </div>
     <form id="newPostForm" class="d-none">
         <h3>Create New Post</h3>

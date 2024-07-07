@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             });
         
             if (response.ok) {
+                alert('Sign up successful!');
                 document.location.replace('/login');
             } else {
                 alert('Failed to sign up.');

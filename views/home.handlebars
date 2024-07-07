@@ -5,9 +5,14 @@
 </div>
 <div id="blogPostContainer">
   {{#each blogPosts as |blogPost|}}
-    <div id="blogPost">
-      <h2>{{blogPost.blog_header}}</h2>
-      <p>{{blogPost.blog_content}}</p>
-    </div>
+    <a href="/blogPost/{{blogPost.id}}">
+      <div id="blogPost">
+        <section>
+          <h2>{{blogPost.blog_header}}</h2>
+          <h2>{{formatDate blogPost.createdAt}}</h2>
+        </section>
+        <p>{{blogPost.blog_content}}</p>
+      </div>
+    </a>
   {{/each}}
 </div>

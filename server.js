@@ -6,6 +6,7 @@ const { engine } = require('express-handlebars');
 const path = require('path');
 const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const moment = require('moment');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -38,6 +39,7 @@ const hbs = engine({
   defaultLayout: 'main',
   layoutsDir: path.join(__dirname, 'views/layouts'),
   helpers: {
+    formatDate: (date) => moment(date).format('MM/DD/YYYY'),
     extend: function(name, context) {
       if (!this._sections) this._sections = {};
       this._sections[name] = context.fn(this);

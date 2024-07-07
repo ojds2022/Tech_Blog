@@ -26,6 +26,13 @@ BlogPosts.init(
                 key: 'user_id',
             },
         },
+        username: {
+            type: DataTypes.STRING,
+            references: {
+               model: 'Users',
+               key: 'username', 
+            }
+        }
     },
     {
         sequelize,
