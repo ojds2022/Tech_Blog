@@ -30,9 +30,8 @@ router.get('/signup', (req, res) => {
 // home page route
 router.get('/', async (req, res) => {
     try {
-        // fetch all users data from the Users table in the database
         const allUsersData = await Users.findAll();
-        // fetch all blog post records from the BlogPosts table in the database
+        
         const allBlogPostData = await BlogPosts.findAll();
 
         const dataReversed = allBlogPostData.slice().reverse(); // reverses the array of blog posts
